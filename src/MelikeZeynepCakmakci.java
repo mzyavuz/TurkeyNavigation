@@ -233,15 +233,21 @@ public class MelikeZeynepCakmakci {
         //StdDraw.enableDoubleBuffering();
 
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter starting city: ");
-        String startingCityName = input.next();
-        System.out.print("Enter destination city: ");
-        String destinationCityName = input.next();
-        City startingCity = getCity(citiesList, startingCityName);
-        City destinationCity = getCity(citiesList, destinationCityName);
+        City startingCity = null;
+        while (startingCity == null) {
+            System.out.print("Enter starting city: ");
+            String startingCityName = input.next();
+            startingCity = getCity(citiesList, startingCityName);
+        }
+        City destinationCity = null;
+        while (destinationCity == null) {
+            System.out.print("Enter destination city: ");
+            String destinationCityName = input.next();
+            destinationCity = getCity(citiesList, destinationCityName);
+        }
         ArrayList<ArrayList<City>> allPaths = findAllPaths(startingCity, destinationCity);
 
-        if (allPaths.getFirst().size() == 1) {
+        if (allPaths.size() == 0) {
             System.out.println("No paths found");
         }
         else {
@@ -289,16 +295,21 @@ public class MelikeZeynepCakmakci {
         if (startCity == destinationCity) {
             allPaths.add(currentPath);
             return allPaths;
-        }
-        int currentNeighborIndex = 0;
+        } else if (startCity.getNeighbors().isEmpty() || destinationCity.getNeighbors().isEmpty())
+            return allPaths;
         currentPath.add(startCity.getNeighbors().getFirst());
-        createPath(currentPath, currentNeighborIndex, destinationCity);
+        createPath(currentPath, 0, destinationCity);
         while (currentPath != null) {
+            if (currentPath.getLast() == startCity)
+                break;
+            System.out.println("Curren Path null değil");
             if (currentPath.getLast() == destinationCity) {
                 allPaths.add((ArrayList<City>) currentPath.clone());
                 currentPath = getNextNeighbor(currentPath, destinationCity);
+                System.out.println("Yeni current path");
             }
         }
+        System.out.println("All paths has been found!");
         return allPaths;
     }
 
@@ -311,37 +322,37 @@ public class MelikeZeynepCakmakci {
 
     private static ArrayList<City> createPath(ArrayList<City> currentPath,int currentNeighborIndex, City destinationCity) {
         if (currentPath == null) return null;
-        City currentCity = currentPath.getLast(); //Hatay
+        City currentCity = currentPath.getLast();
         if (destinationCity.equals(currentCity))
             return currentPath;
-        else if (currentPath.size() == 1) {
+        else if (currentPath.size() == 1 && currentNeighborIndex == currentPath.getFirst().getNeighbors().size()) {
             System.out.println("Son eklediğim null");
             return null;
         }
-        else if (currentNeighborIndex == currentCity.getNeighbors().size() && currentCity == currentPath.getFirst().getNeighbors().getLast()) {
-            System.out.println("İlk null ve Current Path:");
-            return null;
+        //else if (currentPath.size() > 3)
+        //    return getNextNeighbor(currentPath, destinationCity);
+        //else if (currentNeighborIndex == currentCity.getNeighbors().size() && currentCity == currentPath.getFirst().getNeighbors().getLast()) {
+        //    System.out.println("İlk null ve Current Path:");
+        //    printPath(currentPath);
+        //    return null;
+        //}
+        else if (currentNeighborIndex == currentCity.getNeighbors().size()) {
+            return getNextNeighbor(currentPath, destinationCity);
         }
-        else if (currentNeighborIndex == currentCity.getNeighbors().size())
-            return getNextNeighbor(currentPath, destinationCity);
-        City currentNeighbor = currentCity.getNeighbors().get(currentNeighborIndex); //Osmaniye
-        if (currentCity.getNeighbors().size() > currentNeighborIndex && addNextCity(currentPath, currentNeighbor))
-            return createPath(currentPath,0,destinationCity);
-        else if (currentCity.getNeighbors().size() <= currentNeighborIndex)
-            return getNextNeighbor(currentPath, destinationCity);
-        else if (currentCity.getNeighbors().size() > currentNeighborIndex)
-            return createPath(currentPath,currentNeighborIndex+1,destinationCity);
-        System.out.println("2. null ");
-        return null; //Never happens
+        City currentNeighbor = currentCity.getNeighbors().get(currentNeighborIndex);
+        if (addNextCity(currentPath, currentNeighbor))
+            return createPath(currentPath, 0, destinationCity);
+        else
+            return createPath(currentPath, ++currentNeighborIndex, destinationCity);
 
     }
 
     private static ArrayList<City> getNextNeighbor(ArrayList<City> currentPath, City destinationCity) {
-        City currentCity = currentPath.get(currentPath.size()-2);
-        City currentNeighbor = currentPath.getLast();
-        ArrayList<City> neighbors = currentCity.getNeighbors();
-        int currentNeighborIndex = neighbors.indexOf(currentNeighbor);
-        currentPath.remove(currentNeighbor);
+        City currentCityBeforeLast = currentPath.get(currentPath.size()-2);
+        City currentLastCity = currentPath.getLast();
+        ArrayList<City> neighbors = currentCityBeforeLast.getNeighbors();
+        int currentNeighborIndex = neighbors.indexOf(currentLastCity);
+        currentPath.remove(currentLastCity);
         return createPath(currentPath, ++currentNeighborIndex, destinationCity);
     }
 
@@ -367,4 +378,25 @@ public class MelikeZeynepCakmakci {
  *                     break;
  *                 currentCity = neighbor.getNeighbors().
  *             }
+ *
+ *                 private static ArrayList<ArrayList<City>> findAllPathsCOPILOT(City startCity, City destinationCity) {
+ *         ArrayList<ArrayList<City>> allPaths = new ArrayList<>();
+ *         ArrayList<City> currentPath = new ArrayList<>();
+ *         findPathsRecursive(startCity, destinationCity, currentPath, allPaths);
+ *         return allPaths;
+ *     }
+ *
+ *     private static void findPathsRecursive(City currentCity, City destinationCity, ArrayList<City> currentPath, ArrayList<ArrayList<City>> allPaths) {
+ *         currentPath.add(currentCity);
+ *         if (currentCity.equals(destinationCity)) {
+ *             allPaths.add(new ArrayList<>(currentPath));
+ *         } else {
+ *             for (City neighbor : currentCity.getNeighbors()) {
+ *                 if (!currentPath.contains(neighbor)) {
+ *                     findPathsRecursive(neighbor, destinationCity, currentPath, allPaths);
+ *                 }
+ *             }
+ *         }
+ *         currentPath.remove(currentCity);
+ *     }
  */
