@@ -1,9 +1,27 @@
+/**
+ * Program finds the approximate integral value of a polynomial
+ * within the interval by using Riemann Sum Method.
+ * @author M.Zeynep Çakmakcı, Student ID: 2024719030
+ * @since Date: 06.11.2024
+ */
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
+/**
+ * Main class to determine all paths from one city to another and find the shortest path.
+ */
 public class MelikeZeynepCakmakci {
     private static double shortestDistance = 0;
+    private static Path shortestPath = null;
 
+    /**
+     * Main method to execute the program.
+     * @param args command-line arguments. (not used)
+     */
     public static void main(String[] args) {
 
         int mapWidth = 2377;
@@ -15,210 +33,42 @@ public class MelikeZeynepCakmakci {
         StdDraw.setYscale(0, 1055);
         StdDraw.picture((double) mapWidth /2, (double) mapHeight/2,"map.png",mapWidth, mapHeight);
 
-        String cityCoordinates = "Edirne, 142, 980\n" +
-                "Kirklareli, 214, 986\n" +
-                "Tekirdag, 244, 870\n" +
-                "Istanbul, 416, 860\n" +
-                "Canakkale, 116, 738\n" +
-                "Balikesir, 274, 648\n" +
-                "Bursa, 406, 716\n" +
-                "Yalova, 426, 784\n" +
-                "Kocaeli, 514, 810\n" +
-                "Sakarya, 598, 822\n" +
-                "Duzce, 688, 806\n" +
-                "Bolu, 736, 788\n" +
-                "Zonguldak, 740, 888\n" +
-                "Bartin, 822, 926\n" +
-                "Kastamonu, 966, 900\n" +
-                "Karabuk, 856, 882\n" +
-                "Cankiri, 950, 768\n" +
-                "Ankara, 836, 652\n" +
-                "Bilecik, 534, 702\n" +
-                "Eskisehir, 618, 640\n" +
-                "Kutahya, 502, 572\n" +
-                "Manisa, 230, 484\n" +
-                "Izmir, 178, 468\n" +
-                "Aydin, 244, 358\n" +
-                "Mugla, 334, 246\n" +
-                "Antalya, 582, 202\n" +
-                "Denizli, 414, 312\n" +
-                "Burdur, 548, 310\n" +
-                "Isparta, 582, 336\n" +
-                "Usak, 432, 476\n" +
-                "Afyon, 554, 468\n" +
-                "Mersin, 1108, 178\n" +
-                "Hatay, 1292, 66\n" +
-                "Karaman, 952, 254\n" +
-                "Adana, 1174, 208\n" +
-                "Nigde, 1096, 332\n" +
-                "Aksaray, 1030, 420\n" +
-                "Konya, 778, 382\n" +
-                "Nevsehir, 1098, 450\n" +
-                "Kayseri, 1206, 456\n" +
-                "Yozgat, 1146, 596\n" +
-                "Kirsehir, 1022, 534\n" +
-                "Kirikkale, 960, 658\n" +
-                "Sinop, 1134, 984\n" +
-                "Samsun, 1290, 860\n" +
-                "Amasya, 1226, 760\n" +
-                "Corum, 1094, 782\n" +
-                "Tokat, 1324, 706\n" +
-                "Sivas, 1366, 640\n" +
-                "Osmaniye, 1284, 226\n" +
-                "Gaziantep, 1438, 220\n" +
-                "Kilis, 1406, 166\n" +
-                "Sanliurfa, 1598, 234\n" +
-                "Mardin, 1842, 276\n" +
-                "Kahramanmaras, 1376, 308\n" +
-                "Adiyaman, 1558, 306\n" +
-                "Malatya, 1558, 422\n" +
-                "Diyarbakir, 1784, 344\n" +
-                "Sirnak, 2088, 332\n" +
-                "Hakkari, 2250, 348\n" +
-                "Van, 2176, 484\n" +
-                "Batman, 1916, 372\n" +
-                "Elazig, 1650, 492\n" +
-                "Tunceli, 1702, 528\n" +
-                "Bingol, 1808, 508\n" +
-                "Erzincan, 1692, 636\n" +
-                "Bayburt, 1760, 736\n" +
-                "Gumushane, 1674, 752\n" +
-                "Ordu, 1472, 822\n" +
-                "Giresun, 1560, 812\n" +
-                "Trabzon, 1688, 832\n" +
-                "Rize, 1800, 840\n" +
-                "Artvin, 1938, 888\n" +
-                "Ardahan, 2052, 900\n" +
-                "Igdir, 2270, 712\n" +
-                "Kars, 2086, 808\n" +
-                "Erzurum, 1888, 678\n" +
-                "Agri, 2124, 668\n" +
-                "Mus, 1930, 500\n" +
-                "Bitlis, 2030, 460\n" +
-                "Siirt, 2014, 374";
 
-        String cityConnections = "Adana,Osmaniye\n" +
-                "Adana,Nigde\n" +
-                "Adiyaman,Sanliurfa\n" +
-                "Adiyaman,Malatya\n" +
-                "Adiyaman,Kahramanmaras\n" +
-                "Afyon,Isparta\n" +
-                "Afyon,Konya\n" +
-                "Afyon,Eskisehir\n" +
-                "Afyon,Usak\n" +
-                "Agri,Van\n" +
-                "Agri,Bitlis\n" +
-                "Amasya,Tokat\n" +
-                "Amasya,Samsun\n" +
-                "Ankara,Konya\n" +
-                "Ankara,Kirsehir\n" +
-                "Ankara,Cankiri\n" +
-                "Ankara,Bolu\n" +
-                "Ankara,Eskisehir\n" +
-                "Antalya,Mersin\n" +
-                "Antalya,Isparta\n" +
-                "Antalya,Burdur\n" +
-                "Antalya,Mugla\n" +
-                "Artvin,Rize\n" +
-                "Artvin,Erzurum\n" +
-                "Artvin,Ardahan\n" +
-                "Aydin,Mugla\n" +
-                "Aydin,Denizli\n" +
-                "Aydin,Izmir\n" +
-                "Balikesir,Izmir\n" +
-                "Balikesir,Kutahya\n" +
-                "Balikesir,Bursa\n" +
-                "Balikesir,Canakkale\n" +
-                "Bilecik,Eskisehir\n" +
-                "Bilecik,Bolu\n" +
-                "Bilecik,Sakarya\n" +
-                "Bilecik,Bursa\n" +
-                "Bingol,Diyarbakir\n" +
-                "Bingol,Erzurum\n" +
-                "Bingol,Tunceli\n" +
-                "Bolu,Karabuk\n" +
-                "Bolu,Zonguldak\n" +
-                "Bolu,Duzce\n" +
-                "Burdur,Denizli\n" +
-                "Bursa,Kutahya\n" +
-                "Bursa,Yalova\n" +
-                "Canakkale,Tekirdag\n" +
-                "Canakkale,Edirne\n" +
-                "Cankiri,Corum\n" +
-                "Cankiri,Karabuk\n" +
-                "Corum,Yozgat\n" +
-                "Corum,Samsun\n" +
-                "Corum,Sinop\n" +
-                "Corum,Kastamonu\n" +
-                "Denizli,Mugla\n" +
-                "Denizli,Usak\n" +
-                "Diyarbakir,Malatya\n" +
-                "Edirne,Kirklareli\n" +
-                "Elazig,Tunceli\n" +
-                "Elazig,Malatya\n" +
-                "Erzincan,Erzurum\n" +
-                "Erzincan,Bayburt\n" +
-                "Erzincan,Gumushane\n" +
-                "Erzincan,Giresun\n" +
-                "Erzurum,Mus\n" +
-                "Erzurum,Kars\n" +
-                "Erzurum,Bayburt\n" +
-                "Eskisehir,Kutahya\n" +
-                "Gaziantep,Kilis\n" +
-                "Gaziantep,Sanliurfa\n" +
-                "Giresun,Trabzon\n" +
-                "Gumushane,Trabzon\n" +
-                "Hakkari,Sirnak\n" +
-                "Hatay,Osmaniye\n" +
-                "Isparta,Konya\n" +
-                "Mersin,Karaman\n" +
-                "Istanbul,Kocaeli\n" +
-                "Istanbul,Tekirdag\n" +
-                "Istanbul,Kirklareli\n" +
-                "Kars,Igdir\n" +
-                "Kastamonu,Sinop\n" +
-                "Kastamonu,Karabuk\n" +
-                "Kayseri,Kahramanmaras\n" +
-                "Kayseri,Sivas\n" +
-                "Kayseri,Yozgat\n" +
-                "Kirklareli,Tekirdag\n" +
-                "Kirsehir,Nevsehir\n" +
-                "Kirsehir,Yozgat\n" +
-                "Kirsehir,Aksaray\n" +
-                "Kocaeli,Yalova\n" +
-                "Kocaeli,Sakarya\n" +
-                "Konya,Karaman\n" +
-                "Konya,Aksaray\n" +
-                "Kutahya,Manisa\n" +
-                "Malatya,Kahramanmaras\n" +
-                "Malatya,Sivas\n" +
-                "Manisa,Usak\n" +
-                "Kahramanmaras,Osmaniye\n" +
-                "Batman,Mardin\n" +
-                "Mardin,Sirnak\n" +
-                "Batman,Mus\n" +
-                "Nevsehir,Nigde\n" +
-                "Nevsehir,Aksaray\n" +
-                "Nigde,Aksaray\n" +
-                "Rize,Trabzon\n" +
-                "Sakarya,Duzce\n" +
-                "Samsun,Ordu\n" +
-                "Samsun,Sinop\n" +
-                "Batman,Siirt\n" +
-                "Siirt,Sirnak\n" +
-                "Sivas,Ordu\n" +
-                "Sivas,Tokat\n" +
-                "Sivas,Yozgat\n" +
-                "Tokat,Ordu\n" +
-                "Usak,Denizli\n" +
-                "Yozgat,Sivas\n" +
-                "Zonguldak,Bartin\n" +
-                "Zonguldak,Karabuk";
-        String[] cities = cityCoordinates.split("\n");
-        ArrayList<City> citiesList = createCitiesList(cities);
+        File cityCoordinates = new File("src/city_coordinates.txt");
+        ArrayList<City> citiesList = new ArrayList<>();
+        try {
+            Scanner cityCoordinatesScanner = new Scanner(cityCoordinates);
+            while (cityCoordinatesScanner.hasNextLine()) {
+                String[] cityInfo = cityCoordinatesScanner.nextLine().split(", ");
+                citiesList.add(new City(cityInfo[0], Integer.parseInt(cityInfo[1]), Integer.parseInt(cityInfo[2])));
+                citiesList.getLast().setNeighbors(new ArrayList<>());
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-        String[] connectedCitiesList = cityConnections.split("\n");
-        setNeighborCities(connectedCitiesList, citiesList);
+        File cityConnections = new File("src/city_connections.txt");
+        try {
+            Scanner cityConnectionsScanner = new Scanner(cityConnections);
+            while (cityConnectionsScanner.hasNextLine()) {
+                String connectedCityInfo = cityConnectionsScanner.nextLine();
+                String[] connectedCities = connectedCityInfo.split(",");
+                for (City city : citiesList) {
+                    if (city.cityName.equals(connectedCities[0]) || city.cityName.equals(connectedCities[1])) {
+                        for (City secondCity : citiesList) {
+                            if (secondCity.cityName.equals(connectedCities[1]) || connectedCities[0].equals(secondCity.cityName)) {
+                                ArrayList<City> firstNeighbours = city.getNeighbors();
+                                firstNeighbours.add(secondCity);
+                                ArrayList<City> secondNeighbours = secondCity.getNeighbors();
+                                secondNeighbours.add(city);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         StdDraw.setPenColor(StdDraw.GRAY);
         for (City city : citiesList) {
@@ -251,6 +101,7 @@ public class MelikeZeynepCakmakci {
         }
 
         updateNeighborsOrder(citiesList, destinationCity);
+        /*
         ArrayList<City> shortestPath = findShortestPath(startingCity, destinationCity);
         if (shortestPath != null) {
             System.out.print("Total Distance: " + shortestDistance + ". ");
@@ -267,10 +118,32 @@ public class MelikeZeynepCakmakci {
             StdDraw.enableDoubleBuffering();
         } else
             System.out.println("No path could be found");
+         */
+        if (startingCity.equals(destinationCity)) {
+            System.out.println("Total Distance: 0.00. Path:" + destinationCity.cityName);
+        }
+        ArrayList<Path> allPaths = new ArrayList<>();
+        ArrayList<City> stances = new ArrayList<>();
+        stances.add(startingCity);
+        Path startPath = new Path(stances);
+        allPaths.add(startPath);
+        dijkstra(allPaths, destinationCity);
+        if (shortestPath == null)
+            System.out.println("No path could be found");
+        else {
+            System.out.print("Total Distance: " + calculatePathLength(shortestPath.stances) + ". ");
+            printPath(shortestPath.stances);
+        }
 
         System.out.println("Program finished.");
     }
 
+    /**
+     * Creates a list of cities from the given array of city with name and coordinates.
+     *
+     * @param cities an array of city information
+     * @return a list of City objects
+     */
     private static ArrayList<City> createCitiesList(String[] cities) {
         ArrayList<City> cityList = new ArrayList<>();
         for (String city : cities) {
@@ -280,16 +153,20 @@ public class MelikeZeynepCakmakci {
         return cityList;
     }
 
-    private static void setNeighborCities(String[] connectedCitiesList, ArrayList<City> citiesList) {
+    /**
+     * Sets the neighboring cities for each city in the list.
+     *
+     * @param connectedCityInfo two Cities with connection
+     * @param citiesList a list of City objects
+     */
+    private static void setNeighborCities(String connectedCityInfo, ArrayList<City> citiesList) {
         for (City firstCity : citiesList) {
             ArrayList<City> neighborCities = new ArrayList<>();
-            for (String connection : connectedCitiesList) {
-                String[] connectedCities = connection.split(",");
+                String[] connectedCities = connectedCityInfo.split(",");
                 if (connectedCities[0].equals(firstCity.cityName) || connectedCities[1].equals(firstCity.cityName)) {
                     for (City secondCity : citiesList) {
                         if (secondCity.cityName.equals(connectedCities[1]) || connectedCities[0].equals(secondCity.cityName)) {
                             neighborCities.add(secondCity);
-                        }
                     }
                 }
             }
@@ -298,21 +175,47 @@ public class MelikeZeynepCakmakci {
         }
     }
 
+    /**
+     * Calculates the distance between two cities.
+     *
+     * @param city1 the first city
+     * @param city2 the second city
+     * @return the distance between the two cities
+     */
     private static double calculateDistance(City city1, City city2) {
         return (Math.pow(Math.pow((city2.x - city1.x), 2) + Math.pow((city2.y - city1.y), 2), 0.5));
     }
 
+    /**
+     * Calculates the total length of the given path.
+     *
+     * @param currentPath the path to calculate the length for
+     * @return the total length of the path
+     */
     private static double calculatePathLength(ArrayList<City> currentPath) {
         double length = 0;
-        for (int i = 0; i <= currentPath.size() - 2; i++)
+        for (int i = 0; i <= currentPath.size()-2; i++)
             length += calculateDistance(currentPath.get(i), currentPath.get(i + 1));
         return length;
     }
 
+    /**
+     * Checks if the given path is the shortest path found so far.
+     *
+     * @param currentPath the path to check
+     * @return true if the path is the shortest, false otherwise
+     */
     private static boolean isShortestPath(ArrayList<City> currentPath) {
         return !(calculatePathLength(currentPath) > shortestDistance);
     }
 
+    /**
+     * Finds all paths from the starting city to the destination city.
+     *
+     * @param startingCity the starting city
+     * @param destinationCity the destination city
+     * @return a list of all paths
+     */
     private static ArrayList<ArrayList<City>> findAllPaths(City startingCity, City destinationCity) {
         ArrayList<ArrayList<City>> allPaths = new ArrayList<>();
         ArrayList<City> currentPath = new ArrayList<>();
@@ -333,10 +236,17 @@ public class MelikeZeynepCakmakci {
             currentPath = getNextNeighbor(currentPath, destinationCity);
             maxPath++;
         }
-        System.out.println("All paths has been found!");
+        System.out.println("All paths have been found!");
         return allPaths;
     }
 
+    /**
+     * Finds the shortest path from the starting city to the destination city.
+     *
+     * @param startingCity the starting city
+     * @param destinationCity the destination city
+     * @return the shortest path
+     */
     private static ArrayList<City> findShortestPath(City startingCity, City destinationCity) {
         ArrayList<City> currentPath = new ArrayList<>();
         ArrayList<City> shortestPath = null;
@@ -352,7 +262,7 @@ public class MelikeZeynepCakmakci {
             if (currentPath.getLast() == startingCity)
                 break;
             if (currentPath.getLast() == destinationCity) {
-               if (isShortestPath(currentPath) || shortestDistance == 0) {
+                if (isShortestPath(currentPath) || shortestDistance == 0) {
                     shortestDistance = calculatePathLength(currentPath);
                     if (currentPath.equals(shortestPath))
                         return shortestPath;
@@ -365,6 +275,13 @@ public class MelikeZeynepCakmakci {
         return shortestPath;
     }
 
+    /**
+     * Adds the next city to the current path if it is not already in the path.
+     *
+     * @param currentPath the current path
+     * @param neighbor the next city to add or not
+     * @return true if the city was added, false otherwise
+     */
     private static boolean addNextCity(ArrayList<City> currentPath, City neighbor) {
         if (currentPath.contains(neighbor))
             return false;
@@ -372,6 +289,14 @@ public class MelikeZeynepCakmakci {
         return true;
     }
 
+    /**
+     * Creates a path from the current path to the destination city.
+     *
+     * @param currentPath the current path
+     * @param currentNeighborIndex the index of the current neighbor
+     * @param destinationCity the destination city
+     * @return the created path
+     */
     private static ArrayList<City> createPath(ArrayList<City> currentPath, int currentNeighborIndex, City destinationCity) {
         if (currentPath == null) return null;
         City currentCity = currentPath.getLast();
@@ -393,9 +318,15 @@ public class MelikeZeynepCakmakci {
                 return currentPath;
         } else
             return createPath(currentPath, ++currentNeighborIndex, destinationCity);
-
     }
 
+    /**
+     * Removes the last city in the path and gets the next neighbor index.
+     *
+     * @param currentPath the current path
+     * @param destinationCity the destination city
+     * @return the next neighbor city
+     */
     private static ArrayList<City> getNextNeighbor(ArrayList<City> currentPath, City destinationCity) {
         City currentCityBeforeLast = currentPath.get(currentPath.size() - 2);
         City currentLastCity = currentPath.getLast();
@@ -405,6 +336,11 @@ public class MelikeZeynepCakmakci {
         return createPath(currentPath, ++currentNeighborIndex, destinationCity);
     }
 
+    /**
+     * Prints the given path.
+     *
+     * @param path the path to print
+     */
     private static void printPath(ArrayList<City> path) {
         System.out.print("Path: ");
         int i = 0;
@@ -413,6 +349,13 @@ public class MelikeZeynepCakmakci {
         System.out.println(path.get(i).cityName);
     }
 
+    /**
+     * Gets the city with the specified name from the list of cities.
+     *
+     * @param citiesList the list of cities
+     * @param cityName the name of the city
+     * @return the city with the specified name, or null if not found
+     */
     private static City getCity(ArrayList<City> citiesList, String cityName) {
         for (City city : citiesList) {
             if (city.cityName.equals(cityName))
@@ -421,6 +364,12 @@ public class MelikeZeynepCakmakci {
         return null;
     }
 
+    /**
+     * Updates the order of neighbors for each city based on their distance to the destination city.
+     *
+     * @param citiesList the list of cities
+     * @param destinationCity the destination city
+     */
     private static void updateNeighborsOrder(ArrayList<City> citiesList, City destinationCity) {
         for (City city : citiesList) {
             ArrayList<City> neighbors = city.getNeighbors();
@@ -441,5 +390,97 @@ public class MelikeZeynepCakmakci {
                 }
             }
         }
+    }
+
+    private static void dijkstra(ArrayList<Path> currentPaths, City destinationCity) {
+        int newPathsSize = 0;
+        if (currentPaths == null)
+            return;
+        else {
+            for (int i = 0; i < currentPaths.size(); i++) {
+                Path currentPath = new Path((ArrayList<City>) currentPaths.get(i).stances.clone());
+                ArrayList<Path> newPaths = createPathDijkstra(currentPaths, currentPath, destinationCity);
+                if (newPaths == null)
+                    continue;
+                currentPaths.remove(i);
+                i--;
+                //Check destinations includes same cities
+                ArrayList<Path> removedPaths = checkNewPaths(currentPaths, newPaths);
+                currentPaths.addAll(newPaths);
+                currentPaths.removeAll(removedPaths);
+            }
+        }
+    }
+
+    private static ArrayList<Path> createPathDijkstra(ArrayList<Path> currentPaths, Path currentPath, City destinationCity) {
+        ArrayList<Path> newPaths = new ArrayList<>();
+        City currentCity = currentPath.stances.getLast();
+        ArrayList<City> neighbors = (ArrayList<City>) currentCity.getNeighbors().clone();
+        for (City neighbor : neighbors) {
+            Path newPath = null;
+            if (!currentPath.stances.contains(neighbor)) {
+                newPath = new Path((ArrayList<City>) currentPath.stances.clone());
+                newPath.addCity(neighbor);
+                if (neighbor.equals(destinationCity)) {
+                    newPaths.clear();
+                    System.out.println("BULUNMUŞ YOL:");
+                    printPath(newPath.stances);
+                    if (shortestPath == null)
+                        shortestPath = newPath;
+                    else if (shortestPath.totalDistance < newPath.totalDistance)
+                        return newPaths;
+                    newPaths.add(new Path(newPath.stances));
+                    return newPaths;
+                }
+                newPaths.add(new Path(newPath.stances));
+            }
+        }
+        if (newPaths.isEmpty())
+            return null;
+        return newPaths;
+    }
+
+    private static ArrayList<Path> checkNewPaths(ArrayList<Path> currentPaths, ArrayList<Path> newPaths) {
+        if (currentPaths == null || newPaths == null)
+            return null;
+        ArrayList<Path> removedPaths = new ArrayList<>();
+        for (int i = 0; i < newPaths.size(); i++) {
+            Path newPath = newPaths.get(i);
+            City lastCity = newPath.stances.getLast();
+            for (Path currentPath : currentPaths) {
+                if (currentPath.stances.contains(lastCity)) {
+                    if (currentPath.calculateDistanceTo(lastCity) > newPath.totalDistance)
+                        removedPaths.add(currentPath);
+                    else
+                        removedPaths.add(newPath);
+                }
+            }
+        }
+        return removedPaths;
+    }
+
+    private static class Path {
+        ArrayList<City> stances;
+        double totalDistance;
+
+        Path() {}
+
+        Path(ArrayList<City> stances) {
+            this.stances = stances;
+            this.totalDistance = calculatePathLength(stances);
+        }
+
+        public double calculateDistanceTo(City givenStance) {
+            double distance = 0;
+            for (int i = 0; i < stances.indexOf(givenStance); i++)
+                distance += calculateDistance(stances.get(i), stances.get(i + 1));
+            return distance;
+        }
+
+        public void addCity(City newStance) {
+            this.totalDistance += calculateDistance(stances.getLast(), newStance);
+            stances.add(newStance);
+        }
+
     }
 }

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="562565c3-a6e8-4128-a893-ac04bc3e39ad" name="Changes" comment="Turkey Navigation has updated">
+    <list default="true" id="562565c3-a6e8-4128-a893-ac04bc3e39ad" name="Changes" comment="Turkey Navigation has new methods including findShortestPath, updateNeighborsOrder etc.">
+      <change afterPath="$PROJECT_DIR$/src/city_connections.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/city_coordinates.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/City.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MelikeZeynepCakmakci.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MelikeZeynepCakmakci.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +54,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zeynep/Development/SWE/SWE 501 - Intro. to OOP/HWs/Assignment 3 - Turkey Navigation/TurkeyNavigation/src&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -63,6 +67,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
@@ -91,7 +98,12 @@
       <workItem from="1730610171062" duration="14458000" />
       <workItem from="1730712178674" duration="17065000" />
       <workItem from="1730822789612" duration="1390000" />
-      <workItem from="1730867809400" duration="12740000" />
+      <workItem from="1730867809400" duration="16131000" />
+      <workItem from="1730986188104" duration="14561000" />
+      <workItem from="1731180249231" duration="5195000" />
+      <workItem from="1731186114602" duration="2458000" />
+      <workItem from="1731315470488" duration="2556000" />
+      <workItem from="1731328200193" duration="99000" />
     </task>
     <task id="LOCAL-00001" summary="Turkey Navigation has loaded">
       <option name="closed" value="true" />
@@ -109,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730751071807</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Turkey Navigation has new methods including findShortestPath, updateNeighborsOrder etc.">
+      <option name="closed" value="true" />
+      <created>1730895898827</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730895898827</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +138,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Turkey Navigation has loaded" />
     <MESSAGE value="Turkey Navigation has updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Turkey Navigation has updated" />
+    <MESSAGE value="Turkey Navigation has new methods including findShortestPath, updateNeighborsOrder etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="Turkey Navigation has new methods including findShortestPath, updateNeighborsOrder etc." />
   </component>
 </project>
