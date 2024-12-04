@@ -393,17 +393,15 @@ public class MelikeZeynepCakmakci {
     }
 
     private static void dijkstra(ArrayList<Path> currentPaths, City destinationCity) {
-        int newPathsSize = 0;
         if (currentPaths == null)
             return;
         else {
             for (int i = 0; i < currentPaths.size(); i++) {
                 Path currentPath = new Path((ArrayList<City>) currentPaths.get(i).stances.clone());
-                ArrayList<Path> newPaths = createPathDijkstra(currentPaths, currentPath, destinationCity);
+                ArrayList<Path> newPaths = createPathDijkstra(currentPath, destinationCity);
+                currentPaths.remove(i--);
                 if (newPaths == null)
                     continue;
-                currentPaths.remove(i);
-                i--;
                 //Check destinations includes same cities
                 ArrayList<Path> removedPaths = checkNewPaths(currentPaths, newPaths);
                 currentPaths.addAll(newPaths);
@@ -412,7 +410,7 @@ public class MelikeZeynepCakmakci {
         }
     }
 
-    private static ArrayList<Path> createPathDijkstra(ArrayList<Path> currentPaths, Path currentPath, City destinationCity) {
+    private static ArrayList<Path> createPathDijkstra(Path currentPath, City destinationCity) {
         ArrayList<Path> newPaths = new ArrayList<>();
         City currentCity = currentPath.stances.getLast();
         ArrayList<City> neighbors = (ArrayList<City>) currentCity.getNeighbors().clone();
@@ -423,7 +421,7 @@ public class MelikeZeynepCakmakci {
                 newPath.addCity(neighbor);
                 if (neighbor.equals(destinationCity)) {
                     newPaths.clear();
-                    System.out.println("BULUNMUŞ YOL:");
+                    System.out.println("BULUNMUŞ YOL (createPathDijkstra):");
                     printPath(newPath.stances);
                     if (shortestPath == null)
                         shortestPath = newPath;

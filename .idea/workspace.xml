@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="562565c3-a6e8-4128-a893-ac04bc3e39ad" name="Changes" comment="Turkey Navigation has new methods including findShortestPath, updateNeighborsOrder etc.">
-      <change afterPath="$PROJECT_DIR$/src/city_connections.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/city_coordinates.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/City.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MelikeZeynepCakmakci.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MelikeZeynepCakmakci.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +100,8 @@
       <workItem from="1731180249231" duration="5195000" />
       <workItem from="1731186114602" duration="2458000" />
       <workItem from="1731315470488" duration="2556000" />
-      <workItem from="1731328200193" duration="99000" />
+      <workItem from="1731328200193" duration="1299000" />
+      <workItem from="1731421063027" duration="80000" />
     </task>
     <task id="LOCAL-00001" summary="Turkey Navigation has loaded">
       <option name="closed" value="true" />
@@ -129,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730895898827</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Turkey Navigation has new methods including findShortestPath, updateNeighborsOrder etc.">
+      <option name="closed" value="true" />
+      <created>1731328495405</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731328495405</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
